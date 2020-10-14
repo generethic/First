@@ -1,0 +1,139 @@
+<mxfile host="app.diagrams.net" modified="2020-10-02T08:28:28.372Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36" etag="g_Y31BNZz3twIYFD6qYV" version="13.7.7" type="github">
+  <diagram id="_avQh-q0QCK1TzSPd13e" name="Page-1">
+    <mxGraphModel dx="2031" dy="1149" grid="1" gridSize="9" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-2" target="-HkfNFHzvb_7qR9gJ1kh-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-2" value="Определяются переменные 1 и 2 цикла for (i - для 1 и j - для 2 цикла)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="63" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-4" target="-HkfNFHzvb_7qR9gJ1kh-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-4" value="Заходим в первый цикл for (i)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="140" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-9" target="-HkfNFHzvb_7qR9gJ1kh-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-9" value="Определяется массив (int[] array)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="9" width="200" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-44" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-12" target="-HkfNFHzvb_7qR9gJ1kh-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-12" value="Заходим в первый цикл for (j) и перебираем значения от j=0 до j = array.length - 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="210" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-16" target="-HkfNFHzvb_7qR9gJ1kh-25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="660" y="492" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-16" value="array[j+1] = array[j];&lt;br&gt;array[j] = temp;&lt;br&gt;и продолжается цикл 2" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="580" y="396" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-20" value="&lt;span&gt;Если array[j]&amp;gt;array[j+1]&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="565" y="310" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-21" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;Если array[j]&amp;lt;array[j+1]&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="85" y="300" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-25" target="-HkfNFHzvb_7qR9gJ1kh-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-25" value="Итерация цикла j (j = j+1)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="477" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-35" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-31" target="-HkfNFHzvb_7qR9gJ1kh-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-31">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="270" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="415" y="531" />
+              <mxPoint x="783" y="531" />
+              <mxPoint x="783" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-31" target="-HkfNFHzvb_7qR9gJ1kh-34">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="225" y="554" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="415" y="531" />
+              <mxPoint x="180" y="531" />
+              <mxPoint x="180" y="571" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-31" value="Сравнение переменной с array.length-1" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="523.5" width="330" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-52" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-34" target="-HkfNFHzvb_7qR9gJ1kh-51">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-34" value="Итерация цикла i (i = i+1)" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="558" width="330" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-38" target="-HkfNFHzvb_7qR9gJ1kh-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-38" target="-HkfNFHzvb_7qR9gJ1kh-25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="81" y="335" />
+              <mxPoint x="81" y="492" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-38" value="&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;#34;helvetica&amp;#34; ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;Во втором цикле определяется &lt;br&gt;переменная temp,равная array[j+1] &lt;br&gt;и сравнивается с&amp;nbsp; array[j+1]&lt;/span&gt;&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="235" y="285" width="330" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-45" value="Если j&amp;lt;array.length-1&lt;br&gt;&amp;nbsp;(т.е. проходится до конца цикла)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="577" y="495" width="198" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-49" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;Если j&amp;gt;array.length-1&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="54" y="540" width="123" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-51">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="396" y="126" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="415" y="625" />
+              <mxPoint x="819" y="625" />
+              <mxPoint x="819" y="126" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-HkfNFHzvb_7qR9gJ1kh-51" target="-HkfNFHzvb_7qR9gJ1kh-55">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="415" y="626" />
+              <mxPoint x="162" y="626" />
+              <mxPoint x="162" y="732" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-51" value="&lt;span&gt;Сравнение переменной i с array.length&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="253" y="612" width="324" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-54" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;Если i&amp;lt;array.length&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="585" y="603" width="207" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-55" value="Отсортированный массив" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="355" y="702.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-HkfNFHzvb_7qR9gJ1kh-58" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;Если i&amp;gt;array.length&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="171" y="702.5" width="123" height="27" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
