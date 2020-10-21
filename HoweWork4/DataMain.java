@@ -20,16 +20,24 @@ public class DataMain<T> {
         collection.addTest(30);
         collection.addTest(20);
         collection.addTest(10);
-        collection.add(15);
-        collection.add(25);
+        collection.add(7);
+        collection.add(16);
         System.out.println(collection.toString());
-        Comparator<Integer> comp = new Comparator<Integer>() {
+        Comparator comparator = new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
-                return o1 - o2;
+                return o1-o2;
             }
         };
-        collection.sort(comp);
+        Comparator comparator1 = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2-o1;
+            }
+        };
+//        collection.sort(comparator);
+        DataContainer.sort(collection,comparator1);
+
         System.out.println(collection.toString());
     }
 }

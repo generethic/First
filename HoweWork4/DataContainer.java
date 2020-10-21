@@ -50,7 +50,7 @@ public class DataContainer<T> {
         return data[index];
     }
 
-    T[] getItems() {
+    public T[] getItems() {
         return data;
     }
 
@@ -113,10 +113,16 @@ public class DataContainer<T> {
         int n = data.length;
         for (int i = 0; i < n-1; i++)
             for (int j = 0; j < n-i-1; j++)
-                if (comparator.compare(data[j], data[j+1]) < 0) {
+                if (comparator.compare(data[j], data[j+1]) > 0) {
                     T temp = data[j];
                     data[j] = data[j+1];
                     data[j+1] = temp;
                 }
+    }
+    static void sort(DataContainer dataContainer,Comparator comparator) {
+        dataContainer.sort(comparator);
+    }
+    static void sort(DataContainer<? extends Comparable> dataContainer) {
+
     }
 }
