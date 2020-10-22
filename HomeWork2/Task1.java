@@ -1,13 +1,15 @@
 package HomeWork2;
 
 import java.io.*;
+import java.util.LinkedList;
 
 public class Task1 {
     public static void main(String[] args) throws Exception {
-//        multiply(10);
-//        multiplyTheSecond(223458956);
+        int anInt = Integer.parseInt(args[0]);                   //Когда делал ДЗ изначально, видимо невнимательно прочитал, поэтому добавил код, что бы использовать аргумент к исполняемой программе.
+//        multiply(anInt);
+//        multiplyTheSecond(anInt);
 //        multiplyTheThird();
-//        multiplyForth();
+        multiplyForth(35);                                //Опять же, когда делал ДЗ, видимо невнимательно прочитал и не увидел, что есть разные значения (отрицательные сделать не получилось)
 //        multiplyFifth();
     }
 
@@ -74,24 +76,50 @@ public class Task1 {
         }
     }
 
-    public static void multiplyForth() {
+    public static void multiplyForth(int factor) {
         long a = 1;
-        int count = 1;
         long valueBeforeOverflow = 0;
         long overflowingValue = 0;
-        while (a > 0) {
-            a *= 3;
-            count++;
-            if (a > 0) {
-                valueBeforeOverflow = a;
-            }
-            if (a < 0) {
-                overflowingValue = a;
-                break;
+        if(factor>0) {
+            while (a > 0) {
+                a *= factor;
+                if (a > 0) {
+                    valueBeforeOverflow = a;
+                }
+                if (a < 0) {
+                    overflowingValue = a;
+                    break;
+                }
             }
         }
-        System.out.println(valueBeforeOverflow);
-        System.out.println(overflowingValue);
+//        if(factor<0) {
+//            while (true) {
+//                LinkedList<Long> listMax = new LinkedList<>();
+//                LinkedList<Long> listMin = new LinkedList<>();
+//                a *= factor;
+//                System.out.println(a);
+//                if(a>0 && a<Long.MAX_VALUE) {
+//                    listMax.add(a);
+//                    for (int i = 0; i < listMax.size()-1; i++) {
+//                        if(listMax.get(i+1)>listMax.get(i)) {
+//                            valueBeforeOverflow = a;
+//                        }
+//                    }
+//                }
+//                if(a<0 && a>Long.MIN_VALUE) {
+//                    if(a>0 && a<Long.MIN_VALUE) {
+//                        listMin.add(a);
+//                        for (int i = 0; i < listMin.size()-1; i++) {
+//                            if(listMin.get(i+1)<listMin.get(i)) {
+//                                overflowingValue = a;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        System.out.println("Число до переполнения "+valueBeforeOverflow);
+        System.out.println("Число после переполнения "+overflowingValue);
     }
 
     public static void multiplyFifth() {
