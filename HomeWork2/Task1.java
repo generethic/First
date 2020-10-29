@@ -5,11 +5,11 @@ import java.util.LinkedList;
 
 public class Task1 {
     public static void main(String[] args) throws Exception {
-        int anInt = Integer.parseInt(args[0]);                   //Когда делал ДЗ изначально, видимо невнимательно прочитал, поэтому добавил код, что бы использовать аргумент к исполняемой программе.
+//        int anInt = Integer.parseInt(args[0]);                   //Когда делал ДЗ изначально, видимо невнимательно прочитал, поэтому добавил код, что бы использовать аргумент к исполняемой программе.
 //        multiply(anInt);
 //        multiplyTheSecond(anInt);
 //        multiplyTheThird();
-        multiplyForth(35);                                //Опять же, когда делал ДЗ, видимо невнимательно прочитал и не увидел, что есть разные значения (отрицательные сделать не получилось)
+        multiplyForth(-155);                                //Опять же, когда делал ДЗ, видимо невнимательно прочитал и не увидел, что есть разные значения (отрицательные сделать не получилось)
 //        multiplyFifth();
     }
 
@@ -92,32 +92,17 @@ public class Task1 {
                 }
             }
         }
-//        if(factor<0) {
-//            while (true) {
-//                LinkedList<Long> listMax = new LinkedList<>();
-//                LinkedList<Long> listMin = new LinkedList<>();
-//                a *= factor;
-//                System.out.println(a);
-//                if(a>0 && a<Long.MAX_VALUE) {
-//                    listMax.add(a);
-//                    for (int i = 0; i < listMax.size()-1; i++) {
-//                        if(listMax.get(i+1)>listMax.get(i)) {
-//                            valueBeforeOverflow = a;
-//                        }
-//                    }
-//                }
-//                if(a<0 && a>Long.MIN_VALUE) {
-//                    if(a>0 && a<Long.MIN_VALUE) {
-//                        listMin.add(a);
-//                        for (int i = 0; i < listMin.size()-1; i++) {
-//                            if(listMin.get(i+1)<listMin.get(i)) {
-//                                overflowingValue = a;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        if(factor<0) {
+            float count = 0;
+            float countMax = Float.MAX_VALUE/factor;
+            while(count<countMax) {
+                a *= factor;
+                if(a>0) {
+                    valueBeforeOverflow = a;
+                    count++;
+                }
+            }
+        }
         System.out.println("Число до переполнения "+valueBeforeOverflow);
         System.out.println("Число после переполнения "+overflowingValue);
     }
