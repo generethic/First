@@ -1,8 +1,7 @@
 package HomeWork5;
 
-import java.util.*;
 import java.io.*;
-
+import java.util.*;
 
 public class WarAndPeace {
     public static void main(String[] args) {
@@ -10,45 +9,65 @@ public class WarAndPeace {
         File file = new File(filename);
         try (FileInputStream fis = new FileInputStream(file);
              InputStreamReader isr = new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr)) {
+             BufferedReader reader = new BufferedReader(isr)) {
             Set<String> set = new HashSet<>();
             List<String> list = new ArrayList<>();
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 String[] s = line.split(" ");
                 for (int i = 0; i < s.length; i++) {
                     set.add(s[i]);
                     list.add(s[i]);
                 }
             }
-            Set<String> set1 = new HashSet<>();
-            Set<String> set2 = removeZnaki(set,set1);
-            List<String> list1 = new ArrayList<>();
-            List<String> list2 = removeZnaki(list,list1);
-            list2.removeIf((item)->item.length() == 0 || item.isBlank() || item.equals(" "));
-            obnulenie(set,set1);
-            obnulenie(list,list1);
+            /*
+            originalSet - это коллекция с уникальными значениями
+             */
+            Set<String> originalSet = removeExcludeWords(set,new HashSet<>());
+
+            /*
+            onlyWordsSet - экто коллекция с повторяющимися значениями
+             */
+            List<String> onlyWordsSet = removeExcludeWords(list,new ArrayList<>());
+            onlyWordsSet.removeIf((item)->item.length() == 0 || item.isBlank() || item.equals(" ")); //удаление пробелов
+
+            /*
+                Поиск слов,встречающихся в тексе, используя класс RegExSearch
+            */
+            RegExSearch regExSearch = new RegExSearch();
+            String wordForRegExp = regExSearch.toWord(onlyWordsSet); //перевод коллекции в строку
+            regExSearch.search(wordForRegExp,"ВойНа");
+            regExSearch.search(wordForRegExp,"И");
+            regExSearch.search(wordForRegExp,"мир");
+
+            /*
+                Поиск слов,встречающихся в тексе, используя класс EasySearch
+             */
             EasySearch easySearch = new EasySearch();
-            String word = easySearch.toWord(list2);
-            System.out.println(easySearch.search(word,"МИР"));
-//            System.out.println("Список уникальных значений");
-//            for (String s:set2) {
-//                System.out.println(s);
-//            }
-//            System.out.println("Топ - 10 чаще всего встречающихся слов");
-//            printMap(sortByComparator(getMapWithQuantities(list2)));
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            String word = easySearch.toWord(onlyWordsSet); //перевод коллекции в строку
+            easySearch.search(word,"ВОЙНа");
+            easySearch.search(word,"И");
+            easySearch.search(word,"мир");
+
+            /*
+                Метод, печатающий 10 чаще всего втречающихся слов
+             */
+//            printMapRatedWords(sortByComparator(getMapWithQuantities(onlyWordsSet)));
+        } catch (IOException e) {
+
         }
     }
 
-    private static Set<String> removeZnaki(Set<String> set,Set<String> set1) {
+    private static Set<String> removeExcludeWords(Set<String> set, Set<String> set1) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String s : set) {
             char[] c = s.toCharArray();
             for (int i = 0; i < c.length; i++) {
                 if(Character.isLetterOrDigit(c[i])) {
                     stringBuilder.append(c[i]);
+                }else {
+                    set1.add(stringBuilder.toString());
+                    stringBuilder.setLength(0);
                 }
             }
             set1.add(stringBuilder.toString());
@@ -56,38 +75,22 @@ public class WarAndPeace {
         }
         return set1;
     }
-    private static List<String> removeZnaki(List<String> set,List<String> set1) {
+    private static List<String> removeExcludeWords(List<String> set, List<String> set1) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String s : set) {
             char[] c = s.toCharArray();
             for (int i = 0; i < c.length; i++) {
                 if(Character.isAlphabetic(c[i])) {
                     stringBuilder.append(c[i]);
+                }else {
+                    set1.add(stringBuilder.toString());
+                    stringBuilder.setLength(0);
                 }
             }
             set1.add(stringBuilder.toString());
             stringBuilder.setLength(0);
         }
         return set1;
-    }
-
-    private static void obnulenie(Collection<?> c1,Collection<?> c2) {
-        c1 = null;
-        c2 = null;
-    }
-
-    private static Map<String,Integer> vMap(List<String> list) {
-        Map<String, Integer> map = new HashMap<>();
-        for (int i = 0; i < list.size(); i++) {
-            map.put(list.get(i), Collections.frequency(list,list.get(i)));
-            for (int j = i+1; j < list.size(); j++) {
-                if(list.get(i).equals(list.get(j))){
-                    list.remove(j);
-                    j--;
-                }
-            }
-        }
-        return map;
     }
 
     private static Map<String, Integer> getMapWithQuantities(List<String> list)
@@ -120,11 +123,12 @@ public class WarAndPeace {
         }
         return sortedMap;
     }
-    private static void printMap(Map<String, Integer> map) {
+    private static void printMapRatedWords(Map<String, Integer> map) {
+        System.out.println("Топ - 10 чаще всего встречающихся слов");
         Iterator<Map.Entry<String, Integer>> itr = map.entrySet().iterator();
         for(int i=0;i<10;i++) {
             Map.Entry entry = itr.next();
-            System.out.println("Слово "+ entry.getKey()+" встречается "+entry.getValue()+" раз");
+            System.out.println("Слово \""+ entry.getKey()+"\" встречается "+entry.getValue()+" раз");
         }
     }
 }
