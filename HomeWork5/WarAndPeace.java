@@ -1,17 +1,18 @@
 package HomeWork5;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class WarAndPeace {
     public static void main(String[] args) {
-        String filename = "Война и Мир.txt";
-        File file = new File(filename);
-        try (FileInputStream fis = new FileInputStream(file);
-             InputStreamReader isr = new InputStreamReader(fis);
-             BufferedReader reader = new BufferedReader(isr)) {
-            Set<String> set = new HashSet<>();
-            List<String> list = new ArrayList<>();
+        String filename = "Война и Мир.txt"; //адрес для чтения с ПК
+        String name = "HomeWork" + File.separator + "resources" + File.separator + "Война и мир_книга.txt"; //адрес для общего чтения (не знаю, почему не работает)
+        System.out.println(name);
+        Set<String> set = new HashSet<>();
+        List<String> list = new ArrayList<>();
+        try(
+            BufferedReader reader = (new BufferedReader(new InputStreamReader(new FileInputStream(filename))))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] s = line.split(" ");
@@ -20,6 +21,9 @@ public class WarAndPeace {
                     list.add(s[i]);
                 }
             }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
             /*
             originalSet - это коллекция с уникальными значениями
              */
@@ -53,10 +57,7 @@ public class WarAndPeace {
                 Метод, печатающий 10 чаще всего втречающихся слов
              */
 //            printMapRatedWords(sortByComparator(getMapWithQuantities(onlyWordsSet)));
-        } catch (IOException e) {
-
         }
-    }
 
     private static Set<String> removeExcludeWords(Set<String> set, Set<String> set1) {
         StringBuilder stringBuilder = new StringBuilder();
