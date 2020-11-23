@@ -12,34 +12,16 @@ public class Utils {
     static Set<String> removeExcludeWords(Set<String> set, Set<String> set1) {
         StringBuilder stringBuilder = new StringBuilder();
         set.forEach(s -> {
-            char[] c = s.toCharArray();                                 //использование Consumer
-            for (int i = 0; i < c.length; i++) {
-                if (Character.isLetterOrDigit(c[i])) {
-                    stringBuilder.append(c[i]);
-                } else {
-                    set1.add(stringBuilder.toString());
-                    stringBuilder.setLength(0);
-                }
-            }
-            set1.add(stringBuilder.toString());
-            stringBuilder.setLength(0);
+            s = s.replaceAll("[^A-Za-zА-Яа-я0-9]", " ");
+            set1.add(s);
         });
         return set1;
     }
     static List<String> removeExcludeWords(List<String> list, List<String> list1) {
         StringBuilder stringBuilder = new StringBuilder();
         list.forEach(s -> {
-            char[] c = s.toCharArray();                                 //использование Consumer
-            for (int i = 0; i < c.length; i++) {
-                if (Character.isAlphabetic(c[i])) {
-                    stringBuilder.append(c[i]);
-                } else {
-                    list1.add(stringBuilder.toString());
-                    stringBuilder.setLength(0);
-                }
-            }
-            list1.add(stringBuilder.toString());
-            stringBuilder.setLength(0);
+            s = s.replaceAll("[^A-Za-zА-Яа-я0-9]", " ");
+            list1.add(s);
         });
         return list1;
     }
@@ -83,11 +65,12 @@ public class Utils {
             System.out.println("Слово \"" + entry.getKey() + "\" встречается " + entry.getValue() + " раз");
         }
     }
-    static HashMap<String,Integer> map(int delimetr) {
+    public static HashMap<String,Integer> map(int delimetr) {
         String newLine = null;
         int count = 0;
         try {
             newLine = new String(Files.readAllBytes(Path.of(filename)));
+            newLine = newLine.replaceAll("[^A-Za-zА-Яа-я0-9]", " ");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,9 +146,9 @@ public class Utils {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        System.out.println("Слово "+whatSearch1+" встречается: "+result1+" раз.");
-        System.out.println("Слово "+whatSearch2+" встречается: "+result2+" раз.");
-        System.out.println("Слово "+whatSearch3+" встречается: "+result3+" раз.");
+        System.out.println("Слово "+whatSearch1+" встречается: "+result1+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
+        System.out.println("Слово "+whatSearch2+" встречается: "+result2+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
+        System.out.println("Слово "+whatSearch3+" встречается: "+result3+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
     }
     static void searchByMultithreadingByClass(ISearchEngine iSearchEngine,HashMap<String,Integer> map,String whatSearch1,String whatSearch2,String whatSearch3) {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -204,8 +187,8 @@ public class Utils {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        System.out.println("Слово "+whatSearch1+" встречается: "+result1+" раз.");
-        System.out.println("Слово "+whatSearch2+" встречается: "+result2+" раз.");
-        System.out.println("Слово "+whatSearch3+" встречается: "+result3+" раз.");
+        System.out.println("Слово "+whatSearch1+" встречается: "+result1+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
+        System.out.println("Слово "+whatSearch2+" встречается: "+result2+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
+        System.out.println("Слово "+whatSearch3+" встречается: "+result3+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
     }
 }
