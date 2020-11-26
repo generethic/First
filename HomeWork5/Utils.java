@@ -1,12 +1,7 @@
 package HomeWork5;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
-import java.util.concurrent.*;
 
-import static HomeWork5.WarAndPeace.filename;
 
 public class Utils {
     static Set<String> removeExcludeWords(Set<String> set, Set<String> set1) {
@@ -48,9 +43,6 @@ public class Utils {
         }
         return sortedMap;
     }
-    static long searchWithClassesInterfaces(ISearchEngine iSearchEngine, String whereSearch, String whatSearch) {
-        return iSearchEngine.search(whereSearch,whatSearch);
-    }
     static String converseListToWord(List<String    > list) {
         String word = String.join(" ",list);
         StringBuilder stringBuilder = new StringBuilder(word);
@@ -65,130 +57,7 @@ public class Utils {
             System.out.println("Слово \"" + entry.getKey() + "\" встречается " + entry.getValue() + " раз");
         }
     }
-    public static HashMap<String,Integer> map(int delimetr) {
-        String newLine = null;
-        int count = 0;
-        try {
-            newLine = new String(Files.readAllBytes(Path.of(filename)));
-            newLine = newLine.replaceAll("[^A-Za-zА-Яа-я0-9]", " ");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        HashMap<String, Integer> map = new LinkedHashMap<>();
-        for (int i = 0; i < newLine.length(); i++) {
-            if(newLine.charAt(i)==' ') {
-                count++;
-            }
-        }
-        int poSkolkoNadoDelit = count/delimetr;
-        int countZapolnenie = 0;
-        int kolichestvoDeleniy = count/poSkolkoNadoDelit;
-        for (int i = 0; i < kolichestvoDeleniy; i++) {
-            for (int j = 0; j < newLine.length(); j++) {
-                if (newLine.charAt(j) == ' ') {
-                    countZapolnenie++;
-                    if (countZapolnenie == poSkolkoNadoDelit) {
-                        if(i + 1 <= kolichestvoDeleniy) {
-                            countZapolnenie = 0;
-                            map.putIfAbsent(newLine.substring(0, j).trim(), 1);
-                            newLine = newLine.substring(j);
-                            j=0;
-                            i++;
-                        }
-                        else {
-                            map.putIfAbsent(newLine.trim(), 1);
-                        }
-                    }
-                    else {
-                        if(i+1==kolichestvoDeleniy) {
-                            map.putIfAbsent(newLine.trim(),1);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        return map;
-    }
-    private static int searchCallableByClass(ISearchEngine iSearchEngine, Map<String,Integer> map, String whatSearch) {
-        int count = 0;
-        HashMap<String,Integer> map1 = new HashMap<>(map);
-        for(Map.Entry<String,Integer> entry : map1.entrySet()) {
-            if(entry.getKey()!=null) {
-                String whereSearch = entry.getKey();
-                count +=iSearchEngine.search(whereSearch, whatSearch);
-            }
-        }
-        return count;
-    }
-    static void searchByMultithreadingByLambda(ISearchEngine iSearchEngine,HashMap<String,Integer> map,String whatSearch1,String whatSearch2,String whatSearch3) {
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        Future<Integer> future1 = executorService.submit(() -> {
-            System.out.println(Thread.currentThread().getName());
-            return searchCallableByClass(iSearchEngine,map,whatSearch1);
-        });
-        Future<Integer> future2 = executorService.submit(() -> {
-            System.out.println(Thread.currentThread().getName());
-            return searchCallableByClass(iSearchEngine,map,whatSearch2);
-        });
-        Future<Integer> future3 = executorService.submit(() -> {
-            System.out.println(Thread.currentThread().getName());
-            return searchCallableByClass(iSearchEngine,map,whatSearch3);
-        });
-        executorService.shutdown();
-        int result1 = 0;
-        int result2 = 0;
-        int result3 = 0;
-        try {
-            result1 = future1.get();
-            result2 = future2.get();
-            result3 = future3.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Слово "+whatSearch1+" встречается: "+result1+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
-        System.out.println("Слово "+whatSearch2+" встречается: "+result2+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
-        System.out.println("Слово "+whatSearch3+" встречается: "+result3+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
-    }
-    static void searchByMultithreadingByClass(ISearchEngine iSearchEngine,HashMap<String,Integer> map,String whatSearch1,String whatSearch2,String whatSearch3) {
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        Future<Integer> future1 = executorService.submit(new Callable<Integer>() {
-
-            @Override
-            public Integer call() throws Exception {
-                System.out.println(Thread.currentThread().getName());
-                return searchCallableByClass(iSearchEngine,map,whatSearch1);
-            }
-        });
-        Future<Integer> future2 = executorService.submit(new Callable<Integer>() {
-
-            @Override
-            public Integer call() throws Exception {
-                System.out.println(Thread.currentThread().getName());
-                return searchCallableByClass(iSearchEngine,map,whatSearch2);
-            }
-        });
-        Future<Integer> future3 = executorService.submit(new Callable<Integer>() {
-
-            @Override
-            public Integer call() throws Exception {
-                System.out.println(Thread.currentThread().getName());
-                return searchCallableByClass(iSearchEngine,map,whatSearch3);
-            }
-        });
-        executorService.shutdown();
-        int result1 = 0;
-        int result2 = 0;
-        int result3 = 0;
-        try {
-            result1 = future1.get();
-            result2 = future2.get();
-            result3 = future3.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Слово "+whatSearch1+" встречается: "+result1+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
-        System.out.println("Слово "+whatSearch2+" встречается: "+result2+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
-        System.out.println("Слово "+whatSearch3+" встречается: "+result3+" раз."+"Тип интерфеса - " + iSearchEngine.toString());
+    static long searchWithClassesInterfaces(ISearchEngine iSearchEngine, String whereSearch, String whatSearch) {
+        return iSearchEngine.search(whereSearch,whatSearch);
     }
 }

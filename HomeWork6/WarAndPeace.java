@@ -1,4 +1,4 @@
-package HomeWork5;
+package HomeWork6;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Predicate;
 
-import static HomeWork5.Utils.*;
+import static HomeWork6.Utils.*;
 
 public class WarAndPeace {
 
@@ -65,27 +65,33 @@ public class WarAndPeace {
         String wordToFind1 = "ВоЙнА";
         String wordToFind2 = "И";
         String wordToFind3 = "МиР";
-        RegExSearch regExSearch = new RegExSearch();
-        EasySearch easySearch = new EasySearch();
-        long resReg1 = searchWithClassesInterfaces(regExSearch, wordForInterfaces, wordToFind1);
-        long resReg2 = searchWithClassesInterfaces(regExSearch, wordForInterfaces, wordToFind2);
-        long resReg3 = searchWithClassesInterfaces(regExSearch, wordForInterfaces, wordToFind3);
-        System.out.println("Слово "+ wordToFind1 +" встречается: "+resReg1+" раз."+"Тип интерфейса - regExSearch.");
-        System.out.println("Слово "+ wordToFind2 +" встречается: "+resReg2+" раз."+"Тип интерфейса - regExSearch.");
-        System.out.println("Слово "+ wordToFind3 +" встречается: "+resReg3+" раз."+"Тип интерфейса - regExSearch.");
+          RegExSearch regExSearch = new RegExSearch();
+          EasySearch easySearch = new EasySearch();
+          long resReg1 = searchWithClassesInterfaces(regExSearch, wordForInterfaces, wordToFind1);
+          long resReg2 = searchWithClassesInterfaces(regExSearch, wordForInterfaces, wordToFind2);
+          long resReg3 = searchWithClassesInterfaces(regExSearch, wordForInterfaces, wordToFind3);
+          System.out.println("Слово "+ wordToFind1 +" встречается: "+resReg1+" раз."+"Тип интерфейса - regExSearch.");
+          System.out.println("Слово "+ wordToFind2 +" встречается: "+resReg2+" раз."+"Тип интерфейса - regExSearch.");
+          System.out.println("Слово "+ wordToFind3 +" встречается: "+resReg3+" раз."+"Тип интерфейса - regExSearch.");
           /*
           Поиск слов,встречающихся в тексте, используя класс EasySearch
           */
-        long resEasy1 = searchWithClassesInterfaces(easySearch, wordForInterfaces,wordToFind1);
-        long resEasy2 = searchWithClassesInterfaces(easySearch, wordForInterfaces,wordToFind2);
-        long resEasy3 = searchWithClassesInterfaces(easySearch, wordForInterfaces,wordToFind3);
-        System.out.println("Слово "+ wordToFind1 +" встречается: "+resEasy1+" раз."+"Тип интерфейса - easySearch.");
-        System.out.println("Слово "+ wordToFind2 +" встречается: "+resEasy2+" раз."+"Тип интерфейса - easySearch.");
-        System.out.println("Слово "+ wordToFind3 +" встречается: "+resEasy3+" раз."+"Тип интерфейса - easySearch.");
+          long resEasy1 = searchWithClassesInterfaces(easySearch, wordForInterfaces,wordToFind1);
+          long resEasy2 = searchWithClassesInterfaces(easySearch, wordForInterfaces,wordToFind2);
+          long resEasy3 = searchWithClassesInterfaces(easySearch, wordForInterfaces,wordToFind3);
+          System.out.println("Слово "+ wordToFind1 +" встречается: "+resEasy1+" раз."+"Тип интерфейса - easySearch.");
+          System.out.println("Слово "+ wordToFind2 +" встречается: "+resEasy2+" раз."+"Тип интерфейса - easySearch.");
+          System.out.println("Слово "+ wordToFind3 +" встречается: "+resEasy3+" раз."+"Тип интерфейса - easySearch.");
 //
         /*
         Метод, печатающий 10 чаще всего втречающихся слов
         */
 //        printMapRatedWords(sortByComparator(getMapWithQuantities(onlyWordsSet)));
+
+        HashMap<String,Integer> map = map(31);
+        searchByMultithreadingByLambda(easySearch,map, wordToFind1, wordToFind2, wordToFind3);
+        searchByMultithreadingByClass(easySearch,map, wordToFind1, wordToFind2, wordToFind3);
+        searchByMultithreadingByLambda(regExSearch,map, wordToFind1, wordToFind2, wordToFind3);
+        searchByMultithreadingByClass(regExSearch,map, wordToFind1, wordToFind2, wordToFind3);
     }
 }
