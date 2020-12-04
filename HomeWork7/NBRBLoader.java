@@ -12,15 +12,12 @@ import java.util.*;
 /**
  * Загрузчик курса с сайта Нац. Банка
  */
-public class NBRBLoader extends SiteLoader{
-    Map<String,Double> map;
-    @Override
-    public double load(SiteLoader.Currency currencyName) {
-        return 0;
-    }
+class NBRBLoader extends SiteLoader{
+    private Map<String,Double> map;
+    private String site;
+    private LocalDate today;
 
-    @Override
-    protected double handle(String content, Currency currencyName) {
+    private double handle(String content) {
         int endOfString = content.indexOf("}");
         return Double.parseDouble(String.valueOf(content.subSequence(endOfString-6,endOfString)));
     }
@@ -38,7 +35,7 @@ public class NBRBLoader extends SiteLoader{
         rd.close();
         return result.toString();
     }
-    private String line = null;
+
     private String urlToString(String URL) {
         String line = null;
         try {
@@ -48,50 +45,40 @@ public class NBRBLoader extends SiteLoader{
         }
         return line;
     }
-    public Map<String,Double> loadDates(SiteLoader.Currency currencyName,String[] array) {
-        ToFile test = new ToFile();
-        test.resultMap = new HashMap<>();
-        map = new LinkedHashMap<>();
-        String site;
+    void loadDates(String[] array, Currency[] currencyName) {
+        initialize();
         List<LocalDate> list = Dates.getTotalDates(array);
         for (LocalDate localDate : list) {
             try {
-                String toSite = "https://www.nbrb.by/api/exrates/rates/" + currencyName.getId() + "?"+"ondate=" + localDate;
-                site = urlToString(toSite);
-                map.put(localDate +" | "+currencyName,handle(site,currencyName));
-                test.resultMap.put(localDate +" | "+currencyName,handle(site,currencyName));
-            } catch (Exception e) {
+                for (int i = 0; i < currencyName.length; i++) {
+                    String toSite = "https://www.nbrb.by/api/exrates/rates/" + currencyName[i].getId() + "?" + "ondate=" + localDate;
+                    site = urlToString(toSite);
+                    map.put(localDate + " | " + currencyName[i], handle(site));
+                }
+            }catch(Exception e){
                 e.printStackTrace();
             }
         }
-        for(Map.Entry<String,Double> entry : map.entrySet()) {
-            System.out.println("Date "+entry.getKey() + " | " + entry.getValue());
-        }
-
-        return map;
+        printMap(map);
+        ToFile.resultMap = map;
     }
 
-    public Map<String,Double> loadDates(SiteLoader.Currency currencyName) {
-        ToFile test = new ToFile();
-        test.resultMap = new HashMap<>();
-        map = new LinkedHashMap<>();
-        String site;
-        LocalDate today = LocalDate.now();
+    void loadDates(Currency[] currencyName) {
+        initialize();
         List<LocalDate> list = Collections.singletonList(today);
         for (LocalDate localDate : list) {
             try {
-                String toSite = "https://www.nbrb.by/api/exrates/rates/" + currencyName.getId() + "?"+"ondate=" + localDate;
-                site = urlToString(toSite);
-                map.put(localDate +" | "+currencyName,handle(site,currencyName));
-                test.resultMap.put(localDate +" | "+currencyName,handle(site,currencyName));
-            } catch (Exception e) {
+                for (int i = 0; i < currencyName.length; i++) {
+                    String toSite = "https://www.nbrb.by/api/exrates/rates/" + currencyName[i].getId() + "?" + "ondate=" + localDate;
+                    site = urlToString(toSite);
+                    map.put(localDate + " | " + currencyName[i], handle(site));
+                }
+            }catch(Exception e){
                 e.printStackTrace();
             }
         }
-        for(Map.Entry<String,Double> entry : map.entrySet()) {
-            System.out.println("Date "+entry.getKey() + " | " + entry.getValue());
-        }
-        return map;
+        printMap(map);
+        ToFile.resultMap = map;
     }
     private LocalDate findDate(String content) {
         String reformatStart = null;
@@ -105,5 +92,14 @@ public class NBRBLoader extends SiteLoader{
             e.printStackTrace();
         }
         return LocalDate.parse(reformatStart);
+    }
+    private void printMap(Map<String,Double> newMap) {
+        for(Map.Entry<String,Double> entry : newMap.entrySet()) {
+            System.out.println("Date "+entry.getKey() + " | " + entry.getValue());
+        }
+    }
+    private void initialize() {
+        map = new LinkedHashMap<>();
+        today = LocalDate.now();
     }
 }
