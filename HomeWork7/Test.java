@@ -1,58 +1,47 @@
 package HomeWork7;
 
-import static HomeWork7.SiteLoader.*;
+
 import static HomeWork7.SiteLoader.Currency.*;
 
 public class Test {
-    static boolean readyToWrite = true;
+    private static boolean readyToWrite = true;
+    private static SiteLoader.Currency[] currencies;
     public static void main(String[] args) {
+        currencies = new SiteLoader.Currency[]{EUR,USD,RUB};
         /*
           метод alfBankCurrency - Для вывода курсов с сайта банка Альфа-Банк
          */
-        alfBankCurrency(new AlfaLoader());
-        if(readyToWrite) {
-            new ToFile().writeToFile(null, new AlfaLoader().toFile(new Currency[]{USD, EUR}));
-        }
+        alfBankCurrency(new AlfaLoader(),currencies);
         /*
-          метод printRatesDates - Для вывода курсов с сайта Нац. Банка за период,укащзываемых в параметрах
+        метод printRatesDates - Для вывода курсов с сайта Нац. Банка за период,укащзываемых в параметрах
          */
-//        printRatesDates(new NBRBLoader(),args);
-
+//        printRatesDates(new NBRBLoader(),args,currencies);
         /*
           метод printRatesDates - Для вывода курсов с сайта Нац. Банка за текущую дату
          */
-//        printRates(new NBRBLoader());
+//        printRates(new NBRBLoader(),currencies);
 
-
-        /*
-          Разовое сохранение в файл
-         */
-
-        /*
-          запись в файл с проверкой на наличие курсов ранее
-         */
+        if(readyToWrite) {
+            new ToFile().writeToFile(null, new AlfaLoader());
+//            new ToFile().writeToFile(null,new NBRBLoader());
+        }
 
     }
 
-    public static void printRates(NBRBLoader loader){
+    public static void printRates(NBRBLoader loader,SiteLoader.Currency[] currencies){
         /*
           Для вывода курсов в консоль
          */
-        loader.loadDates(USD);
-        loader.loadDates(EUR);
-        loader.loadDates(RUB);
+        loader.loadDates(currencies);
+
 
     }
 
-    public static void printRatesDates(NBRBLoader loader,String[] array) {
-        loader.loadDates(USD,array);
-        loader.loadDates(EUR,array);
-        loader.loadDates(RUB,array);
+    public static void printRatesDates(NBRBLoader loader,String[] array,SiteLoader.Currency[] currencies) {
+        loader.loadDates(array,currencies);
     }
-    public static void alfBankCurrency(AlfaLoader loader) {
-        loader.load(USD);
-        loader.load(EUR);
-        loader.load(RUB);
+    public static void alfBankCurrency(AlfaLoader loader, SiteLoader.Currency[] currencies) {
+        loader.load(currencies);
     }
 
 }

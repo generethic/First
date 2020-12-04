@@ -44,8 +44,7 @@ public class AlfaLoader extends SiteLoader {
     private static List<String> toCollection(String line) {
         line = line.substring(line.indexOf("["), line.length() - 1);
         String[] array = line.split("},\\{");
-        List<String> list = new LinkedList<>(Arrays.asList(array));
-        return list;
+        return new LinkedList<>(Arrays.asList(array));
     }
 
     private static LinkedList<String> deleteFromList(List<String> list) {
@@ -55,8 +54,7 @@ public class AlfaLoader extends SiteLoader {
         for (int i = 0; i < list.size(); i++) {
             matcher = pattern.matcher(list.get(i));
             while (matcher.find()) {
-                if (matcher.group().contains("\"buyCode\"")) {
-                    if (matcher.group().equals("\"buyIso\":BYN"))
+                if (matcher.group().contains("\"buyIso\":\"BYN\"")) {
                         newList.add(list.get(i));
                 }
             }
@@ -87,14 +85,19 @@ public class AlfaLoader extends SiteLoader {
         return result;
     }
 
-    @Override
-    public double load(Currency currencyName) {
+    private void convertTo() {
+        ToFile.resultMap = map;
+    }
+
+    public void load(Currency[] currencyName) {
         map = new LinkedHashMap<>();
         LocalDate today = LocalDate.now();
         List<LocalDate> newlist = Collections.singletonList(today);
         for (LocalDate localDate : newlist) {
             try {
-                map.put(localDate + " | " + currencyName, handle(null, currencyName));
+                for (int i = 0; i < currencyName.length; i++) {
+                    map.put(localDate + " | " + currencyName[i], handle(currencyName[i]));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -102,17 +105,16 @@ public class AlfaLoader extends SiteLoader {
         for (Map.Entry<String, Double> entry : map.entrySet()) {
             System.out.println("Date " + entry.getKey() + " | " + entry.getValue());
         }
-
-        return 0;
     }
 
-    @Override
-    protected double handle(String content, Currency currencyName) {
+    private double handle(Currency name) {
         double result;
         line = urlToString();
         list = toCollection(line);
-        String curr = convertISOtoNBRB(currencyName);
+        list = deleteFromList(list);
+        String curr = convertISOtoNBRB(name);
         result = currency(curr);
+        convertTo();
         return result;
     }
 
@@ -133,19 +135,5 @@ public class AlfaLoader extends SiteLoader {
             }
         }
         return line;
-    }
-
-    public void toFile(SiteLoader.Currency[] currencies) {
-        for (int i = 0; i < currencies.length; i++) {
-            LocalDate today = LocalDate.now();
-            List<LocalDate> newlist = Collections.singletonList(today);
-            for (LocalDate localDate : newlist) {
-                try {
-                    ToFile.resultMap.put(localDate + " | " + currencies[i], handle(null, currencies[i]));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }
