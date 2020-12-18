@@ -21,24 +21,24 @@ public class ToFile implements IWriteToFile {
         }
         if(!path.isBlank()) {
             if(file.length()==0) {
-                writeToCollection(line);
+                writeCollection(line);
             } else {
-                writeToCollection(path);
+                writeCollection(path);
                 for(Map.Entry<String,Double> entry : mapInFile.entrySet()) {
                     resultMap.putIfAbsent(entry.getKey(),entry.getValue());
-                    writeToCollection(line);
+                    writeCollection(line);
                 }
             }
         }
         else {
             line = "C:\\Users\\sturchenko.a\\IdeaProjects\\HomeWork\\src\\HomeWork7";
-            writeToCollection(line);
+            writeCollection(line);
         }
         writePath = line;
     }
 
     @Override
-    public void writeToCollection(String word) {
+    public void writeCollection(String word) {
         try {
             file=new File(word+filename);
             FileOutputStream fos=new FileOutputStream(file);

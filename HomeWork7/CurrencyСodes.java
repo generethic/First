@@ -1,15 +1,15 @@
 package HomeWork7;
 
 public class CurrencyСodes {
-    public static String getUSD() {
+    public static String getUSDCode() {
         return USD;
     }
 
-    public static String getEUR() {
+    public static String getEURCode() {
         return EUR;
     }
 
-    public static String getRUB() {
+    public static String getRUBCode() {
         return RUB;
     }
 

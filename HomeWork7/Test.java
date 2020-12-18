@@ -11,7 +11,7 @@ public class Test {
         /*
           метод alfBankCurrency - Для вывода курсов с сайта банка Альфа-Банк
          */
-        alfBankCurrency(new AlfaLoader(),currencies);
+        alfBankCurrency(new AlfaBankLoader(),currencies);
         /*
         метод printRatesDates - Для вывода курсов с сайта Нац. Банка за период,укащзываемых в параметрах
          */
@@ -22,7 +22,7 @@ public class Test {
 //        printRates(new NBRBLoader(),currencies);
 
         if(readyToWrite) {
-            new ToFile().writeToFile(null, new AlfaLoader());
+            new ToFile().writeToFile(null, new AlfaBankLoader());
 //            new ToFile().writeToFile(null,new NBRBLoader());
         }
 
@@ -40,7 +40,7 @@ public class Test {
     public static void printRatesDates(NBRBLoader loader,String[] array,SiteLoader.Currency[] currencies) {
         loader.loadDates(array,currencies);
     }
-    public static void alfBankCurrency(AlfaLoader loader, SiteLoader.Currency[] currencies) {
+    public static void alfBankCurrency(AlfaBankLoader loader, SiteLoader.Currency[] currencies) {
         loader.load(currencies);
     }
 

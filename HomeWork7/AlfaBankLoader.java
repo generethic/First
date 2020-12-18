@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 /**
  * Загрузчик курса с сайта Альфа-Банка
  */
-public class AlfaLoader extends SiteLoader {
+public class AlfaBankLoader extends SiteLoader {
     private Map<String, Double> map;
     private String line = null;
 
