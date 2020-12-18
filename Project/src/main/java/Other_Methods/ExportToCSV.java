@@ -1,8 +1,13 @@
+package Other_Methods;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.*;
-
+import java.util.LinkedHashMap;
+import java.util.Map;
+/*
+    Класс, отвечающий за экпорт в CSV
+ */
 public class ExportToCSV {
     public void export(LinkedHashMap[] arrayMap) {
         String eol = System.getProperty("line.separator");
