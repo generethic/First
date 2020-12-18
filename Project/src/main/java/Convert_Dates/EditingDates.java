@@ -1,4 +1,4 @@
-package Dates;
+package Convert_Dates;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +9,7 @@ import java.util.Locale;
 Класс отвечает за работу с преобразование дат по заданным форматам
  */
 public class EditingDates {
-    protected String[] edit(SimpleDateFormat simpleDateFormat, List<LocalDate> list) {
+    public String[] edit(SimpleDateFormat simpleDateFormat, List<LocalDate> list) {
         String[] wordArray = new String[2];
         try {
             wordArray[0] = simpleDateFormat.format(ConvertArrayToDates.getFrom().parse(list.get(0).toString()));

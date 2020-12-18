@@ -1,6 +1,8 @@
-package Dates;
+package Currency_Parsers;
 
-import Other_Methods.BasicsAndPatterns;
+import Convert_Dates.ConvertArrayToDates;
+import Convert_Dates.EditingDates;
+import Export_to_CSV_and_Basics.BasicsAndPatterns;
 
 import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
@@ -13,8 +15,8 @@ public class NBRB extends ParseUrlToResult {
     private String patternForm1 = BasicsAndPatterns.DATE_PATTERN_5.getName();
     private String patternForm2 = BasicsAndPatterns.DATE_PATTERN_1.getName();
     private String patternForm3 = BasicsAndPatterns.DATE_PATTERN_2.getName();
-    Pattern pattern = Pattern.compile("\\d+\\-\\d*\\-\\d+");
-    Pattern pattern1 = Pattern.compile("\\d\\.\\d+");
+    private Pattern pattern = Pattern.compile("\\d+\\-\\d*\\-\\d+");
+    private Pattern pattern1 = Pattern.compile("\\d\\.\\d+");
     private SimpleDateFormat toNBRB = new SimpleDateFormat(patternForm1);
     public LinkedHashMap<String,Double> getInformation(String[] array, String basic) {
         list = new ConvertArrayToDates().getTotalDates(array);
@@ -25,14 +27,14 @@ public class NBRB extends ParseUrlToResult {
         map = this.getCurrency(datesArray);
         return map;
     }
-    protected LinkedHashMap<String,Double> getCurrency(String[] array) {
+    private LinkedHashMap<String,Double> getCurrency(String[] array) {
         return matcher(pattern,pattern1,array);
     }
     protected String[] split(String word) {
         return word.split("}");
     }
 
-    protected LinkedHashMap<String,Double> matcher(Pattern pattern1,Pattern pattern2,String[] array) {
+    private LinkedHashMap<String,Double> matcher(Pattern pattern1,Pattern pattern2,String[] array) {
         LinkedHashMap<String,Double> map = new LinkedHashMap<>();
         for (String s : array) {
             matcher = pattern1.matcher(s);

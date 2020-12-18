@@ -1,6 +1,6 @@
-package Dates;
+package Convert_Dates;
 
-import Other_Methods.BasicsAndPatterns;
+import Export_to_CSV_and_Basics.BasicsAndPatterns;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -15,6 +15,7 @@ public class ConvertArrayToDates {
     private LocalDate end;
     private static String pattern = BasicsAndPatterns.DATE_PATTERN_2.getName();
     private static SimpleDateFormat from = new SimpleDateFormat(pattern);
+
     protected static SimpleDateFormat getFrom() {
         return from;
     }

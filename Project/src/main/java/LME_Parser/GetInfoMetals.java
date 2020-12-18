@@ -1,7 +1,8 @@
-package Other_Methods;
+package LME_Parser;
 
-import Dates.ConvertArrayToDates;
-import Dates.EditingDates;
+import Convert_Dates.ConvertArrayToDates;
+import Convert_Dates.EditingDates;
+import Export_to_CSV_and_Basics.BasicsAndPatterns;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
@@ -12,18 +13,32 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class GetInfoMetals {
+public class GetInfoMetals implements IGetInformation {
     private LinkedHashMap<String,Double> mapWithRates;
-    private LinkedList<String> list = new LinkedList<>();
-    private LinkedHashMap<String,Double> mapWithResults;
-    private int count = 0;
+    private LinkedList<String> list;
+    private int count;
     private String date = null;
     private Double value = null;
+    private String URL = null;
 
-    public LinkedHashMap<String,Double> getInformation(String URL, String[] datesArray) {
-        initializeMaps(datesArray);
+    @Override
+    public LinkedHashMap<String,Double> getInformation(String metal, String[] datesArray) {
+        URL = link+metal;
+        initialize(datesArray);
+        return getLmeValues(URL);
+    }
+    private void initialize(String[] array) {
+        list = new LinkedList<>();
+        mapWithRates = new LinkedHashMap<>();
+        List<LocalDate> listLocalDates = new ConvertArrayToDates().getTotalDates(array);
+        for (LocalDate listLocalDate : listLocalDates) {
+            list.add(listLocalDate.format(DateTimeFormatter.ofPattern(BasicsAndPatterns.DATE_PATTERN_1.getName())));
+        }
+    }
+    private LinkedHashMap<String, Double> getLmeValues(String link) {
+        LinkedHashMap<String,Double> map = new LinkedHashMap<>();
         try {
-            org.jsoup.nodes.Document doc = Jsoup.connect(URL).get();
+            org.jsoup.nodes.Document doc = Jsoup.connect(link).get();
             if (doc != null) {
                 org.jsoup.select.Elements rows = doc.select(BasicsAndPatterns.PATTERN1.getName());
                 if (rows != null) {
@@ -44,7 +59,7 @@ public class GetInfoMetals {
                                 for (Map.Entry<String, Double> entry : mapWithRates.entrySet()) {
                                     for (String s : list) {
                                         if (entry.getKey().equals(s)) {
-                                            mapWithResults.put(entry.getKey(), entry.getValue());
+                                            map.put(entry.getKey(), entry.getValue());
                                         }
                                     }
                                 }
@@ -58,14 +73,6 @@ public class GetInfoMetals {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return mapWithResults;
-    }
-    private void initializeMaps(String[] array) {
-        mapWithResults = new LinkedHashMap<>();
-        mapWithRates = new LinkedHashMap<>();
-        List<LocalDate> listLocalDates = new ConvertArrayToDates().getTotalDates(array);
-        for (LocalDate listLocalDate : listLocalDates) {
-            list.add(listLocalDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-        }
+        return map;
     }
 }

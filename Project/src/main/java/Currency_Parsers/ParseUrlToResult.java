@@ -1,4 +1,4 @@
-package Dates;
+package Currency_Parsers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,8 +14,8 @@ import java.util.regex.*;
  */
 public abstract class ParseUrlToResult {
     protected String newUrl;
-    protected BufferedReader rd;
-    protected String line;
+    private BufferedReader reader;
+    private String line;
     protected String dayFirst;
     protected String dayLast;
     protected LinkedHashMap<String, Double> map;
@@ -25,7 +25,7 @@ public abstract class ParseUrlToResult {
     protected Pattern pattern1 = Pattern.compile("\\d+\\,\\d+");
     protected Matcher matcher;
     protected Matcher matcher1;
-    protected HttpURLConnection conn;
+    private HttpURLConnection conn;
 
     private void getInfoFromUrl() {
         try {
@@ -33,7 +33,7 @@ public abstract class ParseUrlToResult {
             HttpURLConnection.setFollowRedirects(false);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,13 +44,13 @@ public abstract class ParseUrlToResult {
     protected String[] getCurrencyArray(String URL) {
         getInfoFromUrl();
         try {
-            line = rd.readLine();
+            line = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
         String word = line;
         try {
-            rd.close();
+            reader.close();
             conn.disconnect();
         } catch (IOException e) {
             e.printStackTrace();

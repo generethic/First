@@ -1,4 +1,4 @@
-package Other_Methods;
+package Export_to_CSV_and_Basics;
 
 public enum BasicsAndPatterns {
     EUR_NBRB("292"),

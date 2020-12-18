@@ -1,6 +1,8 @@
-package Dates;
+package Currency_Parsers;
 
-import Other_Methods.BasicsAndPatterns;
+import Convert_Dates.ConvertArrayToDates;
+import Convert_Dates.EditingDates;
+import Export_to_CSV_and_Basics.BasicsAndPatterns;
 import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.regex.Pattern;
@@ -11,10 +13,10 @@ import java.util.regex.Pattern;
 public class CBR extends ParseUrlToResult {
     private String patternForm = BasicsAndPatterns.DATE_PATTERN_4.getName();
     private SimpleDateFormat toCBR = new SimpleDateFormat(patternForm);
-    protected LinkedHashMap<String,Double> getCurrency(String[] array){
+    private LinkedHashMap<String,Double> getCurrency(String[] array){
         return matcher(pattern,pattern1,array);
     }
-    protected LinkedHashMap<String,Double> matcher(Pattern pattern1, Pattern pattern2, String[] array) {
+    private LinkedHashMap<String,Double> matcher(Pattern pattern1, Pattern pattern2, String[] array) {
         LinkedHashMap<String,Double> map = new LinkedHashMap<>();
         for (String s : array) {
             matcher = pattern1.matcher(s);
