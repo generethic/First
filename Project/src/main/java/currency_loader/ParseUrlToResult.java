@@ -1,4 +1,6 @@
-package Currency_Parsers;
+package currency_loader;
+
+import interfaces.IGetInformation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,26 +8,39 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.regex.*;
 /*
 Класс в котором прописана логика работы с датами, подключение к сайтам банков для получения информации
  */
-public abstract class ParseUrlToResult {
-    protected String newUrl;
+public abstract class ParseUrlToResult implements IGetInformation {
+    private boolean flag;
+    private String basic;
+    private String newUrl;
     private BufferedReader reader;
     private String line;
-    protected String dayFirst;
-    protected String dayLast;
-    protected LinkedHashMap<String, Double> map;
-    protected List<LocalDate> list;
-    protected String[] datesArray;
-    protected Pattern pattern = Pattern.compile("\\d+\\.\\d*\\.\\d+");
-    protected Pattern pattern1 = Pattern.compile("\\d+\\,\\d+");
-    protected Matcher matcher;
-    protected Matcher matcher1;
     private HttpURLConnection conn;
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public String getBasic() {
+        return basic;
+    }
+
+    public ParseUrlToResult(boolean flag, String basic) {
+        this.flag = flag;
+        this.basic = basic;
+    }
+
+    public String getNewUrl() {
+        return newUrl;
+    }
+
+    public void setNewUrl(String newUrl) {
+        this.newUrl = newUrl;
+    }
+
+
 
     private void getInfoFromUrl() {
         try {
@@ -38,9 +53,7 @@ public abstract class ParseUrlToResult {
             e.printStackTrace();
         }
     }
-    protected String[] split(String word) {
-        return word.split("<Record Date=");
-    }
+    abstract String[] split(String word);
     protected String[] getCurrencyArray(String URL) {
         getInfoFromUrl();
         try {
@@ -57,5 +70,5 @@ public abstract class ParseUrlToResult {
         }
         return split(word);
     }
-
+    abstract String reworkDate(LocalDate date);
 }
