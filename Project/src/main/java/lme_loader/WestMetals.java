@@ -1,76 +1,64 @@
 package lme_loader;
 
+import basics.ParseDateForCurrencies;
+import basics.PatternsForParseWestMetals;
+import basics.WestMetalsValues;
 import dates_сonvertion.ConvertArrayToListOfDates;
-import basics.BasicsAndPatterns;
 import interfaces.IGetInformation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import java.io.IOException;
+import org.jsoup.select.Elements;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class WestMetals implements IGetInformation {
+public class WestMetals extends GetMetalsInformation implements IGetInformation {
+    //flag определяет как необходимо будет формировать даты (каждую конкретно, или диапазон от ранней к поздней дате
     private boolean flag;
-    private String basic;
+    //это список с данными, согласно которых будут получены данные
     private List<String> list = new LinkedList<>();
+    //экземпляр класса Object, по которому происходит синхронизация
     private final Object lock = new Object();
+    //переменная, отвечающая за enum,который будет передаваться в конструктор класса
+    private WestMetalsValues values;
 
-    public WestMetals(boolean flag, String basic) {
+    public WestMetals(boolean flag, WestMetalsValues values) {
         this.flag = flag;
-        this.basic = basic;
+        this.values = values;
     }
-
+    //метод родительского класса, собирающий данные с сайта, согласно переданных дат
     @Override
-    public LinkedHashMap<String, Double> getInformation(IGetInformation information, LocalDate... dates) {
+    public LinkedHashMap<String, Double> getInformation(LocalDate... dates) {
+        String URL = "https://www.westmetall.com/en/markdaten.php?action=table&field=" + values.getName();
         synchronized (lock) {
-            String URL = "https://www.westmetall.com/en/markdaten.php?action=table&field=" + basic;
             List<LocalDate> listLocalDates;
-            if (flag) {
-                listLocalDates = new ConvertArrayToListOfDates().getTotalDates(true, dates);
-                for (LocalDate listLocalDate : listLocalDates) {
-                    list.add(listLocalDate.format(DateTimeFormatter.ofPattern(BasicsAndPatterns.DATE_PATTERN_1.getName())));
-                }
-            } else {
-                listLocalDates = new ConvertArrayToListOfDates().getTotalDates(false, dates);
-                for (LocalDate listLocalDate : listLocalDates) {
-                    list.add(listLocalDate.format(DateTimeFormatter.ofPattern(BasicsAndPatterns.DATE_PATTERN_1.getName())));
-                }
-            }
-            return getLmeValues(URL);
+            listLocalDates = ConvertArrayToListOfDates.getTotalDates(flag, dates);
+            for (LocalDate listLocalDate : listLocalDates)
+                list.add(listLocalDate.format(DateTimeFormatter.ofPattern(ParseDateForCurrencies.DATE_PATTERN_1.getName())));
         }
+        return loadResultsToMap(URL);
     }
-
-    private LinkedHashMap<String, Double> getLmeValues(String link) {
-
-        LinkedHashMap<String, Double> map = new LinkedHashMap<>();
-        try {
-            org.jsoup.nodes.Document doc = Jsoup.connect(link).get();
-            map = loadToMap(doc);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
-
-    private LinkedHashMap<String, Double> loadToMap(Document document) {
+    //метод, который с помощью JSOUP преобразовывает строку,загруженную по ссылке в карту с итоговыми значениями
+    private LinkedHashMap<String, Double> loadResultsToMap(String link) {
+        Document doc = Jsoup.parse(handleFromUrl(link));
         int count = 0;
         String date = null;
         Double value = null;
         LinkedHashMap<String, Double> mapWithRates = new LinkedHashMap<>();
         LinkedHashMap<String, Double> mapResult = new LinkedHashMap<>();
-        if (document != null) {
-            org.jsoup.select.Elements rows = document.select(BasicsAndPatterns.PATTERN1.getName());
+        if (doc != null) {
+            Elements rows = doc.select(PatternsForParseWestMetals.PATTERN1.getName());
             if (rows != null) {
                 for (org.jsoup.nodes.Element row : rows) {
-                    org.jsoup.select.Elements columns = row.select(BasicsAndPatterns.PATTERN2.getName());
+                    Elements columns = row.select(PatternsForParseWestMetals.PATTERN2.getName());
                     for (org.jsoup.nodes.Element column : columns) {
                         ++count;
                         if (count == 1) {
                             date = column.text().replace(".", "");
-                            date = reworkDate(BasicsAndPatterns.DATE_PATTERN_1.getName(), BasicsAndPatterns.DATE_PATTERN_3.getName(), date);
+                            date = reworkDate(ParseDateForCurrencies.DATE_PATTERN_1.getName(), ParseDateForCurrencies.DATE_PATTERN_3.getName(), date);
                         }
                         if (count == 2) {
                             String result = column.text().replace(",", "");
@@ -94,6 +82,7 @@ public class WestMetals implements IGetInformation {
         }
         return mapResult;
     }
+    //метод, отвечающий за правильное преобразование дат в соответствии с шаблонами, допустимыми на сайте банка,если нужно получить диапазон дат
     private String reworkDate(String pattern1,String pattern2,String date) {
         String word = null;
         try {

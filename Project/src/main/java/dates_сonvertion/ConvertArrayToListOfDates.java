@@ -10,12 +10,8 @@ import java.util.List;
     Класс отвечает за преобразование дат, переданных в виде массива из одного или двух элементов (начало-конец) в лист дат
  */
 public class ConvertArrayToListOfDates {
-
-    public List<LocalDate> getTotalDates(boolean flag,LocalDate...dates) {
-        return reformatDates(flag,dates);
-    }
-
-    private List<LocalDate> reformatDates(boolean flag, LocalDate...date) {
+    //метод, который согласно переданной перееменной flag формирует List с диапазоном конкретных дат, либо заполняет даты от ранеей к поздней
+    public static List<LocalDate> getTotalDates(boolean flag, LocalDate...date) {
         List<LocalDate> list;
         List<LocalDate> dateList = new ArrayList<>();
         list = new ArrayList<>(date.length);
