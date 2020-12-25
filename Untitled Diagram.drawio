@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-25T11:17:49.098Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="Yw2jNVCpoZ2UiJ25FdLl" version="14.1.2" type="github">
+<mxfile host="app.diagrams.net" modified="2020-12-25T11:22:48.811Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="cvcjCtkJPC2e6RU7Dri4" version="14.1.2" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2595" dy="1370" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2336" pageHeight="1654" math="0" shadow="0">
+    <mxGraphModel dx="865" dy="457" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2336" pageHeight="1654" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -286,16 +286,16 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="6wGe9pjqTLlq7Jo_1dCh-19" value="ValuesCodes&#xa;(enum)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;labelBackgroundColor=#FFFFFF;fontColor=#000000;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="790" y="1220" width="200" height="200" as="geometry" />
+          <mxGeometry x="790" y="1220" width="200" height="206" as="geometry" />
         </mxCell>
-        <mxCell id="6wGe9pjqTLlq7Jo_1dCh-20" value="+ EUR&#xa;+ USD&#xa;- nameCBR: String&#xa;- nameNBRB: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="6wGe9pjqTLlq7Jo_1dCh-19">
-          <mxGeometry y="40" width="200" height="70" as="geometry" />
+        <mxCell id="6wGe9pjqTLlq7Jo_1dCh-20" value="+ EUR&#xa;+ USD&#xa;+RUB&#xa;- nameCBR: String&#xa;- nameNBRB: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="6wGe9pjqTLlq7Jo_1dCh-19">
+          <mxGeometry y="40" width="200" height="80" as="geometry" />
         </mxCell>
         <mxCell id="6wGe9pjqTLlq7Jo_1dCh-21" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="6wGe9pjqTLlq7Jo_1dCh-19">
-          <mxGeometry y="110" width="200" height="8" as="geometry" />
+          <mxGeometry y="120" width="200" height="8" as="geometry" />
         </mxCell>
         <mxCell id="6wGe9pjqTLlq7Jo_1dCh-22" value="+ ValuesCodes&#xa;(String nameCBR, &#xa;String nameNBRB)&#xa;+ getNameCBR(): String&#xa;+ getNameNBRB(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="6wGe9pjqTLlq7Jo_1dCh-19">
-          <mxGeometry y="118" width="200" height="82" as="geometry" />
+          <mxGeometry y="128" width="200" height="78" as="geometry" />
         </mxCell>
         <mxCell id="6wGe9pjqTLlq7Jo_1dCh-23" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;shadow=0;strokeWidth=1;strokeColor=#FF3333;fontColor=#CC0000;entryX=0.424;entryY=-0.011;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" target="6wGe9pjqTLlq7Jo_1dCh-19">
           <mxGeometry width="160" relative="1" as="geometry">
