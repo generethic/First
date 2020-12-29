@@ -2,25 +2,35 @@ package lme_loader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-
+/**
+ * Аюстрактный класс, в котором реализовано получение информации с сайта Westmetals.com и экспорт её в String формат. Класс
+ * который является его наследником в свою очередь, продолжает работу с данными, получеными тут.
+ */
 abstract class GetMetalsInformation {
-    //метод, который отвечает за получение информации с сайта по ссылке в виде строки
+    /** Метод, который отвечает за получение информации с сайта по ссылке в виде строки
+     @return Строка с информацией с сайта
+     */
+    //
     protected String handleFromUrl(String link) {
         StringBuilder result = null;
         String word = "";
         URL url;
-        URLConnection con = null;
+        HttpURLConnection conn = null;
         try {
             url = new URL(link);
-            con = url.openConnection();
+            HttpURLConnection.setFollowRedirects(false);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (con != null) {
-            try(BufferedReader reader  = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+        assert conn != null;
+        try (InputStream stream = conn.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
                 while (true) {
                     try {
                         if ((word = reader.readLine()) == null) break;
@@ -33,7 +43,6 @@ abstract class GetMetalsInformation {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
         assert false;
         return result.toString();
     }

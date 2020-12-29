@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-/*
-    Класс отвечает за преобразование дат, переданных в виде массива из одного или двух элементов (начало-конец) в лист дат
+/**
+ * Класс служит для преобразования переданных дат в лист с этими датами в зависимости от типа передаваемого параметра flag
  */
 public class ConvertArrayToListOfDates {
-    //метод, который согласно переданной перееменной flag формирует List с диапазоном конкретных дат, либо заполняет даты от ранеей к поздней
+    /** Получает значение свойства name
+     @return List, содержащий даты, согласно переданного flag
+     */
     public static List<LocalDate> getTotalDates(boolean flag, LocalDate...date) {
         List<LocalDate> list;
         List<LocalDate> dateList = new ArrayList<>();

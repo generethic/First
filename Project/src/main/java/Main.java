@@ -10,10 +10,12 @@ import lme_loader.WestMetals;
 
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        boolean flag = true;
+        boolean flag = false;
         String destinationCsv = "resCSV.csv";
         String destinationDoc = "resDoc.docx";
         IExport exportToCSV = new ExportToCSV();
@@ -40,17 +42,24 @@ public class Main {
         LinkedHashMap<String, Double> byn_USD = nbrb_Usd.getInformation(date1,date2,date3,date4,date5);
         LinkedHashMap<String, Double> byn_EUR = nbrb_Eur.getInformation(date1,date2,date3,date4,date5);
         LinkedHashMap<String, Double> byn_RUB = nbrb_Rub.getInformation(date1,date2,date3,date4,date5);
-        LinkedHashMap[] arrayMap = new LinkedHashMap[]{aluminumMap, copperMap, rub_USD, rub_EUR, byn_USD, byn_EUR, byn_RUB};
+        List<LinkedHashMap<String,Double>> linkedHashMaps = new LinkedList<>();
+        linkedHashMaps.add(aluminumMap);
+        linkedHashMaps.add(copperMap);
+        linkedHashMaps.add(rub_USD);
+        linkedHashMaps.add(rub_EUR);
+        linkedHashMaps.add(byn_USD);
+        linkedHashMaps.add(byn_EUR);
+        linkedHashMaps.add(byn_RUB);
 
-        exportToCSV.export(arrayMap,destinationCsv);
-        exportToDoc.export(arrayMap,destinationDoc);
+        exportToCSV.export(linkedHashMaps,destinationCsv);
+        exportToDoc.export(linkedHashMaps,destinationDoc);
 
-//        aluminumMap.forEach((k,v)-> System.out.println(k+"-"+v));
-//        copperMap.forEach((k,v)-> System.out.println(k+"-"+v));
-//        rub_USD.forEach((k,v)-> System.out.println(k+"-"+v));
-//        rub_EUR.forEach((k,v)-> System.out.println(k+"-"+v));
-//        byn_USD.forEach((k,v)-> System.out.println(k+"-"+v));
-//        byn_EUR.forEach((k,v)-> System.out.println(k+"-"+v));
-//        byn_RUB.forEach((k,v)-> System.out.println(k+"-"+v));
+        aluminumMap.forEach((k,v)-> System.out.println(k+"-"+v));
+        copperMap.forEach((k,v)-> System.out.println(k+"-"+v));
+        rub_USD.forEach((k,v)-> System.out.println(k+"-"+v));
+        rub_EUR.forEach((k,v)-> System.out.println(k+"-"+v));
+        byn_USD.forEach((k,v)-> System.out.println(k+"-"+v));
+        byn_EUR.forEach((k,v)-> System.out.println(k+"-"+v));
+        byn_RUB.forEach((k,v)-> System.out.println(k+"-"+v));
     }
 }

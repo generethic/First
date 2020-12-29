@@ -8,28 +8,34 @@ import interfaces.IGetInformation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
+/**
+ * Класс, который занимается получением информации с сайта WestMetals.com
+ */
 public class WestMetals extends GetMetalsInformation implements IGetInformation {
-    //flag определяет как необходимо будет формировать даты (каждую конкретно, или диапазон от ранней к поздней дате
+    /** Свойство - флаг, отвечающие за то, за какие даты будет получена информация */
     private boolean flag;
-    //это список с данными, согласно которых будут получены данные
+    /** Свойство - список, в который будут добавляться данные с использованием свойства flag*/
     private List<String> list = new LinkedList<>();
-    //экземпляр класса Object, по которому происходит синхронизация
+        /** Свойство - замок, по которому будет происходить синхронизация*/
     private final Object lock = new Object();
-    //переменная, отвечающая за enum,который будет передаваться в конструктор класса
+    /** Свойство - значение типа enum*/
     private WestMetalsValues values;
 
+    /** Создает новый объект
+     @param flag Как будут передаваться даты
+     @param values Enum, содержащий металлы
+     @see WestMetals(boolean,WestMetalsValues)
+     */
     public WestMetals(boolean flag, WestMetalsValues values) {
         this.flag = flag;
         this.values = values;
     }
-    //метод родительского класса, собирающий данные с сайта, согласно переданных дат
+    /** Получает карту с информацией о дате и стоимостью металла на жту дату
+     @return Map<String,Double> содержащий итоговые значения
+     */
     @Override
     public LinkedHashMap<String, Double> getInformation(LocalDate... dates) {
         String URL = "https://www.westmetall.com/en/markdaten.php?action=table&field=" + values.getName();
@@ -41,7 +47,9 @@ public class WestMetals extends GetMetalsInformation implements IGetInformation 
         }
         return loadResultsToMap(URL);
     }
-    //метод, который с помощью JSOUP преобразовывает строку,загруженную по ссылке в карту с итоговыми значениями
+    /** Метод, который преобразовывает строку,загруженную по ссылке в карту с итоговыми значениями
+     @return Map<String,Double> содержащий значения по результатам преобразования строки
+     */
     private LinkedHashMap<String, Double> loadResultsToMap(String link) {
         Document doc = Jsoup.parse(handleFromUrl(link));
         int count = 0;
@@ -82,14 +90,12 @@ public class WestMetals extends GetMetalsInformation implements IGetInformation 
         }
         return mapResult;
     }
-    //метод, отвечающий за правильное преобразование дат в соответствии с шаблонами, допустимыми на сайте банка,если нужно получить диапазон дат
+    /** Метод, отвечающий за правильное преобразование дат в соответствии с шаблонами, допустимыми на сайте банка,если нужно получить диапазон дат
+     @return преобразованная дата
+     */
+    //метод,
     private String reworkDate(String pattern1,String pattern2,String date) {
-        String word = null;
-        try {
-            word = new SimpleDateFormat(pattern1).format(new SimpleDateFormat(pattern2, Locale.ENGLISH).parse(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return word;
+        LocalDate date1 = LocalDate.parse(date.trim(), DateTimeFormatter.ofPattern(pattern2, Locale.ENGLISH));
+        return date1.format(DateTimeFormatter.ofPattern(pattern1));
     }
 }
