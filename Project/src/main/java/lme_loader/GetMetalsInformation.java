@@ -44,6 +44,7 @@ abstract class GetMetalsInformation {
                 e.printStackTrace();
             }
         assert false;
+        conn.disconnect();
         return result.toString();
     }
 }
